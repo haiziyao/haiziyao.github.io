@@ -11,6 +11,7 @@ tags:
 ---
     本人也是属于不知道配置过多少次Ubuntu以及在Ubuntu上面配置Clash了
     主要步骤如下
+    
 [下载Clash并解压](#下载Clash并解压)  
 [启动clash生产配置文件](#启动clash生产配置文件)  
 [补充.config，加入节点](#补充.config，加入节点)  
@@ -31,7 +32,7 @@ tags:
     你一定要注意"who am i"
     不小心使用root权限sudo mkdir  
     你可能就一直发现报错“无写入权限”，十分懊恼
-    
+
 ### 启动clash生产配置文件
 ``` bash 
 #在解压完成之后，你会得到一个Crash什么玩意的东西
