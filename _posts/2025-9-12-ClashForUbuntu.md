@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Clash For Ubuntu22.04"
-subtitle:   " \"Hello World, Hello Blog\""
+subtitle:   " \"How to use Clash In Ubuntu22.04\""
 date:       2025-09-12 24:00:00
 author:     "Hzy"
 header-img: " "
@@ -55,9 +55,16 @@ wget -O config.yaml 这里放置你的机场链接
 #如果有节点信息info，那么你就已经配置成功了
 ``` 
 ### 配置网络
+#### 端口被占用
  clash中，默认网关是127.0.0.1:7890  
 如果你下载了其他东西，7890端口被占用了，你就需要在config文件里面更改端口号。（这里我不再写了）  
+#### 网络代理设置
 现在我们只需要到网络设置里面，更改网络代理就好了  
 我们clash走的协议为http，https，Socket5   
 所以把这三个的代理ip改为127.0.0.1，监听端口为7890  
+#### 打开clash面板
+clash面板默认端口为9090  
+也就是127.0.0.1:9090  
+也有内网域名http://clash.razord.top/
+#### 测试
 OK,快打开你的Google试试吧！
