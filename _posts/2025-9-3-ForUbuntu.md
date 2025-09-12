@@ -2,7 +2,7 @@
 layout:     post
 title:      "Hello Ubuntu"
 subtitle:   " \"necessity for Ubuntu\""
-date:       2015-09-03 12:00:00
+date:       2025-09-03 12:00:00
 author:     "HZY"
 header-img: ""
 catalog: true
