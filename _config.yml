@@ -76,7 +76,7 @@ ga_domain:
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
 sidebar-about-description: "努力成为一个25预备社畜"
-sidebar-avatar: img/icon_wechat.png  # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: http://haiziyao.github.io/img/icon_wechat.png  # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
 featured-tags: true # whether or not using Feature-Tags
