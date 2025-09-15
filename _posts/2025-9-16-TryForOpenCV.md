@@ -11,7 +11,20 @@ tags:
 ---
 
 这是本人基于OpenCV所做的第一次小demo，旨在强化学习OpenCV的一些常见基本操作。
+
+以下所有内容是通过
+
+{% raw %}
+
+// 这里放你的代码
+Point2f src[4] = {{529,142},{771,190},{405,395},{674,457}};
+
+{% endraw %}
+
+这个玩意包裹，旨在避免报错
+
 ``` c++
+{% raw %}
 #include <cstddef>
 #include <iterator>
 #include <opencv2/core.hpp>
@@ -323,7 +336,6 @@ void test8(){
         Scalar lower(hmin,110,153);
         Scalar upper(19,240,255);
         inRange(imgHSV, lower, upper, imgMask);
-
         imshow("img",img);
         imshow("imgHSV",imgHSV);
         imshow("imgMask",imgMask);
@@ -426,4 +438,5 @@ void test1(){
     imshow("Image",img);
     waitKey(20);
 }
+{% endraw %}
 ```
