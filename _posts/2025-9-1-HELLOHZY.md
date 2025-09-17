@@ -8,6 +8,7 @@ header-img: ""
 catalog: true
 tags:
     - ABOUT ME
+home: false
 ---
 **"后之览者，亦将有感于斯文"**
 ### WHO IS HZY 
