@@ -13,16 +13,17 @@ tags:
 To be engaged in Publicity Work, you are expected to be skillful at which are mentioned above.
 #### 必备软件
 ##### 7-zip
-作为一款简洁，功能强大的压缩软件，我不希望还有人用着蹩脚的winrar,或者一些不要脸的压缩软件
+[7-zip](https://www.7-zip.org/download.html)作为一款简洁，功能强大的压缩软件，我不希望还有人用着蹩脚的winrar,或者一些不要脸的压缩软件
 ##### snipaste
-作为一个无比好用的截屏贴图软件。snipaste的伟大无需多盐
+[snipaste](https://snipasteshot.com/)作为一个无比好用的截屏贴图软件。snipaste的伟大无需多盐
 ##### zoomlt
-用了就知道
+[zoomlt](https://learn.microsoft.com/zh-cn/sysinternals/downloads/zoomit)用了就知道
 ##### everything
-文件检索是一个比较重要的事情，但是原生的windows文件资源管理器做了一些比较逆天的“反向优化”，甚至当你仅仅打开一个文件夹就会卡死。
+[everything](https://www.voidtools.com/zh-cn/support/everything/)是一个文件检索工具。文件检索是一件比较重要的事情，但是原生的windows文件资源管理器做了一些比较逆天的“反向优化”，甚至当你仅仅打开一个文件夹就会卡死。
 所以，我们应该选择一个更优的检索文件的方法，那就是everything
-##### Clash？
+##### 科学上网？
 *嘘嘘嘘*
+[一个vpn工具](https://clash.download/downloads)是一个vpn代理工具。
 #### 常用软件
 ##### world
 *学会简单的论文排版*
