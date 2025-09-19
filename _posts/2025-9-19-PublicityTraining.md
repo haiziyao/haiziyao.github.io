@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Publicity Department Training"
-subtitle:   " \"OpenCV Work\""
+subtitle:   " \"Publicity Work\""
 date:       2025-09-19 05:00:00
 author:     "HoriMonkey "
 header-img: ""
@@ -29,7 +29,7 @@ To be engaged in Publicity Work, you are expected to be skillful at which are me
 * 如何使用固定要求的文字格式
 * 分级标题的设置
 * 图片居中的探索
-  为什么word里面明明是居中的，但转化为pdf就变成垃圾了？
+为什么word里面明明是居中的，但转化为pdf就变成垃圾了？
 ##### ppt
 *make ppt a power*
 * 形状格式？
