@@ -83,6 +83,7 @@ strstr(s1,s2);
 //String类
 
 ```
+<<<<<<< HEAD
 
 ``` cpp
  //构造函数
@@ -148,3 +149,5 @@ using namespace std;
 ```
 ##### 函数对象 & lambda
 > 这个可能需要以后慢慢补
+=======
+>>>>>>> 092873335d7b215b06f97ccc734da74bac20c77d
