@@ -42,6 +42,10 @@ class Example{
 auto add = [=]{++global_x;}
 [x,&y]
 [this]  //this指针也是需要手动传入的
+
+auto func = [x]() mutable{
+    x++;   //按值捕获x，但仍然可以改变x，不影响外部
+}
 ```
 
 ``` cpp
@@ -79,3 +83,68 @@ strstr(s1,s2);
 //String类
 
 ```
+
+``` cpp
+ //构造函数
+ ClassName(params):name
+ //拷贝函数
+ ClassName(const ClassName &obj){
+    
+ }
+```
+
+> 上面的还是太简单了，准备放大招了
+## Huge BOSS
+##### 智能指针
+> std::unique_ptr  资源不共享
+> std::shared_ptr  资源可以共享，要防止循环引用
+
+如何防止？自己慢慢再去查文档吧，
+
+##### for_each
+``` cpp
+using namespace std;
+    void MyPrint(int val) {
+        cout<<val<<endl;
+    }
+
+    class Sum {
+    public:
+        int total = 0;
+        void operator()(int num) {
+            total+=num;
+            cout<<num<<endl;
+        }
+    };
+
+    int test() {
+        std::cout << "hello world"<<std::endl;
+        vector<int> v;
+        v.push_back(10);
+        v.push_back(20);
+        v.push_back(30);
+        v.push_back(40);
+
+        vector<int>::iterator pBegin = v.begin();
+        vector<int>::iterator pEnd = v.end();
+        cout<<"method 1"<<endl;
+        while (pBegin!=pEnd) {
+            cout<<*pBegin<<endl;
+            pBegin++;
+        }
+        cout<<"method 2"<<endl;
+        for (vector<int>::iterator it=v.begin();it != v.end();it++) {
+            cout<<*it<<endl;
+        }
+        cout<<"method 3"<<endl;
+        for_each(v.begin(),v.end(),MyPrint);
+        //高级写法
+        //lambda表达式
+        for_each(v.begin(),v.end(),[](int num){cout<<num<<endl;});
+        //使用函数对象
+        Sum sum = for_each(v.begin(),v.end(),Sum());
+        return 0;
+    }
+```
+##### 函数对象 & lambda
+> 这个可能需要以后慢慢补
