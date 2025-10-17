@@ -81,9 +81,12 @@ strchr(s1,ch);
 strstr(s1,s2);
 
 //String类
+persons.emplace_back("person"+i,i+60);
+persons.emplace_back("person" + std::to_string(i),i+60);
+//经典错误，第一种写法实质上是指针的移动
 
-```
-<<<<<<< HEAD
+``` 
+ 
 
 ``` cpp
  //构造函数
@@ -149,5 +152,257 @@ using namespace std;
 ```
 ##### 函数对象 & lambda
 > 这个可能需要以后慢慢补
-=======
->>>>>>> 092873335d7b215b06f97ccc734da74bac20c77d
+
+
+#### STL
+##### Vector
+动态数组
+``` cpp
+#构造函数
+vector<T>  v;
+vector(v.begin(),v.end()); // 照旧左开右闭
+vector(n,elem);  //这个我还真不常用
+vector(const vector &vec);
+//这里我们简单解释一下为啥经常使用cosnt T &T
+//这里其实就得说引用传递的好处了，
+//语法直观，避免nullptr，保持赋值时候指针类型一致，语义明确
+vector& operator=(const vector &vec);
+assign(v.begin(),v.end());
+assign(n,elem);
+
+empty()  //判断是否是空
+capacity();
+size();
+resize(int num);
+resize(int num ,elem);
+
+push_back(elem);
+pop_back(elem);
+insert(pos,elem);
+insert(pos,num,elem);
+erase(start,end);
+erase(pos);
+clear();
+
+at(int index);
+operator[];
+front();
+back();
+
+swap(vec);
+
+reserve(int len);
+
+```
+
+##### deque
+双端数组,底层是多个数组，通过中控数组链接
+``` cpp
+deque<T> dq;
+deque(begin,end);
+deque(n,elem);
+deque(const deque &deq);
+
+deque& operator=(const deque &deq);
+assign(beg,end);
+assign(n,elem);
+
+empty();
+size();
+resize(num);
+resize(num,elem);
+
+push_back(elem);
+push_front(elem);
+pop_back();
+pop_front();
+
+insert(pos,elem);
+insert(pos,n,elem);
+insert(pos,beg,end);
+clear();
+erase(beg,end);
+erase(pos);
+
+at(index);
+operator[];
+front();
+back();
+
+sort(beg,end);
+```
+
+##### stack & queue & list
+
+
+``` cpp
+stack<T> stk;
+stack(const stack &stk);
+stack& operator=(const stack &stk);
+push(elem);
+pop();
+top();
+emtpy();
+size();
+
+queue<T> que;
+queue(const queue &que);
+
+push(elem);
+pop();
+back();
+front();
+
+empty();
+size();
+
+//链式存储，链表
+list<T> lst;
+list(beg,end);
+list(n,elem);
+list(const list &lst);
+
+assign(beg,end);
+assign(e,elem);
+list& operator=(const list &lst);
+swap(lst);  //list1.swap(list2)
+
+size();
+empty();
+resize(num);
+resize(num,elem);
+
+push_back();
+pop_back();
+push_front();
+pop_fornt();
+insert(pos,elem);
+insert(pos,n,elem);
+insert(pos,beg,end);
+clear();
+erase(beg,end);
+erase(pos);
+remove(elem);  //删除所有elem
+
+front();
+end();
+
+reverse();
+sort();
+
+
+```
+
+##### set & multiset & pair
+``` cpp
+set<T> st;
+set(const set &st);
+set& operator=(const set &set);
+size();
+empty();
+swap();
+insert(elem);
+clear();
+erase(pos);
+erase(beg,end);
+erase(elem);  //通过值删除
+
+find(key);//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();
+count(key);
+
+
+//set不可以插入重复数据，而multiset可以
+//set插入数据的同时会返回插入结果，表示插入是否成功
+//multiset不会检测数据，因此可以插入重复数据
+
+//对组
+pair<type,type> p (v1,v2);
+pair<type,type> p = make_pair(v1,v2);
+
+//set的排序规则
+set<T,MyCompare> s2;
+class MyCompare{
+    public:
+        bool operator()(T t1,T t2){
+            //逻辑
+            return ture;
+            //ture则t1在前
+            //对于自定义数据类型，必须指定仿函数才能插入数据
+        }
+}
+```
+
+##### map & multimap
+``` cpp
+map<T1,T2> mp;
+map(const map &map);
+map& operator=(const map &mp);
+
+size();
+empty();
+swap(st);
+
+insert(elem);
+clear();
+erase(pos);
+erase(beg,end);
+erase(key);
+
+find(key);
+count(key);
+//仿函数排序
+map<T1,T2,Mycompare> m ;
+
+
+```
+
+##### 内建函数对象
+``` cpp
+//内建函数对象
+//std标准库提供了很多内建函数对象
+```
+
+##### 查找
+``` cpp
+find(beg,end,value);
+find_if(beg,end,_pred);  //_pred指的是返回bool的仿函数
+//find_if()可根据不同需求，灵活定义仿函数
+adjacent_find();
+binary_search();
+cout();
+cout_if();
+
+```
+
+##### 排序
+``` cpp
+sort(beg,end,_Pred);
+ramdom_shuffle(beg,end);//随机调整次序
+merge(beg1,end1,beg2,end2,dest); 
+reverse(beg,end);
+
+copy(beg,end,dest);
+replace(beg,end,oldvalue,newvalue);
+replace_if(beg,end,_Pred,newvalue);
+swap(container1,container2);
+
+```
+##### 算术生成算法 & 常用集合算法
+``` cpp
+#include <numeric>
+accumulate(beg,end,value);
+fill(beg,end,value);
+
+set_intersection // 求两个容器的交集
+set_union // 求两个容器的并集
+set_difference // 求两个容器的差集
+
+set_intersection(iterator beg1, iterator end1, iterator beg2,iterator end2, iterator dest);
+
+set_union(iterator beg1, iterator end1, iterator beg2, iterator end2,iterator dest);
+
+set_difference(iterator beg1, iterator end1, iterator beg2,iterator end2,iterator dest);
+
+```
+
+
