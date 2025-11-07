@@ -109,3 +109,42 @@ func (v Vertex) Scale(f float64) {
 }
 注意上面两个函数完全不同，一个是副本传递，一个是引用传递
 * 方法与指针重定向
+>//这里有一个比较逆天的东西,需要好好解决一下
+
+* 接口
+>type Abser interface{
+    Abs() float64
+}
+* 隐式接口
+>type I interface {
+	M()
+}
+func (t T) M() {
+	fmt.Println(t.S)
+}
+
+* 接口值
+
+
+* 底层为nil的接口值
+>func (t *T) M() {
+	if t == nil {
+		fmt.Println("<nil>")
+		return
+	}
+	fmt.Println(t.S)
+}
+
+* 空接口
+
+* 类型断定
+>t,ok := i.(T)
+* 类型选择
+>switch v:=i.(type){
+    case T:
+    case S:
+}
+* Stringer
+
+* error
+
