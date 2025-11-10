@@ -10,7 +10,11 @@ tags:
     - MathModeling
 ---
 
-##### For latex user, or for every member, you are expected for "Using Latex Easyly"
+##### For latex user, or for every member, you are expected for "Using Latex"
+
+**预计花费时间4-8小时**
+
+
 #### 准备工作
 ##### 下载软件
 对于不想配置复杂的软件环境这种情况，极其推荐直接使用[overleaf](https://cn.overleaf.com/)
@@ -18,20 +22,22 @@ tags:
 拓展提升(可以直接无视)：可以自行配置软件环境(自选其一，懒人推荐第一个)
 * TeXstudio
 * vscode + latex
+
 ##### 了解latex | overleaf
 自行到b站搜索教程(预计2-4小时)
 推荐：
-[overleaf_learn](https://www.bilibili.com/video/BV1cg411V7hW?vd_source=8764f6c9f32bdb5a73fbda89a5f547f5)
-[latex_learn](https://www.bilibili.com/video/BV1Mc411S75c?vd_source=8764f6c9f32bdb5a73fbda89a5f547f5)
+* [overleaf_learn](https://www.bilibili.com/video/BV1cg411V7hW?vd_source=8764f6c9f32bdb5a73fbda89a5f547f5)
+* [latex_learn](https://www.bilibili.com/video/BV1Mc411S75c?vd_source=8764f6c9f32bdb5a73fbda89a5f547f5)
 
 ##### 作业：练手
 根据上面教程文档，请自己编写一个latex的项目(预计1-2小时)：
 * 在overleaf中新建项目，并开启共享模式，并分享链接。如：[我的共享](https://cn.overleaf.com/read/jrfsvfdxfqpp#4f43b5)
 * 作业内容需要包括：三级标题的使用，如何生成目录，图片的引用，数学公式的书写
 * 学会如何使用模板
+
 #### latex 进阶
 >完成面内容后，请在以后的各种作业中尝试使用latex而不是word。
-在进行这一步之前，请保障你完成了之前的内容。
+在进行这一步之前，请确保你完成了之前的内容。
 
 #### 模板的使用
 我们学校有一个大佬做了一个美赛论文模板[美赛论文模板](https://github.com/xjtu-blacksmith/easymcm/releases)
@@ -93,13 +99,12 @@ tags:
     \begin{equation}
     \begin{cases}
     x_{ij} \in \{0,1\} & \text{(the $i$ has $j$ ... )} \\
-    \sum_{i=1}^k x_{ij} \geq 1 & \text{at least 1 )} \\
+    \sum_{i=1}^k x_{ij} \geq 1 & \text{at least 1 } \\
     \sum_{j=1}^m x_{ij} \leq t_i / t_0 & \text{(limited)}
     \end{cases}
     \end{equation}
     ```
     * 矩阵 和 行列式
-    
     ``` latex
     % 矩阵
     \[
@@ -119,7 +124,10 @@ tags:
     \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}
     \]
     ```
+
 * latex-label生成器
-[教程文档](https://blog.csdn.net/winycg/article/details/82633513)
-[latex表格生成器](https://www.latex-tables.com/)
-根据这些可以很轻松制作许多需要的表格
+
+    * [教程文档](https://blog.csdn.net/winycg/article/details/82633513)
+    * [latex表格生成器](https://www.latex-tables.com/)
+
+    根据这些可以很轻松制作许多需要的表格
