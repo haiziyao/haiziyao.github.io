@@ -2,7 +2,7 @@
 layout:     post
 title:      "Graph Learn"
 subtitle:   " \"prepare for MathModeling\""
-date:       2025-11-1100:00:00
+date:       2025-11-11 00:00:00
 author:     "HJL's team(hzy jxt lxx)"
 header-img: ""
 header-style: text
