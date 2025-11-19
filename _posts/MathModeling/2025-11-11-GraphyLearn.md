@@ -48,11 +48,13 @@ tags:
 #### 图像处理
 我们经常会遇到一些图像需要局部放大，红色圆圈标注等等操作
 * 局部放大：Visio，（ppt还在探索）
-* 特殊局部标注：PPt画个圈还是没问题的
+* 特殊局部标注：PPT画个圈还是没问题的
 
-### 更nb的画图
+
+### 参考资料
+* [西工大O奖大佬](https://levitate-qian.github.io/2020/05/04/10%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%B8%A6%E4%BD%A0%E4%BA%86%E8%A7%A3%E8%AE%BA%E6%96%87%E6%8F%92%E5%9B%BE%E5%88%B6%E4%BD%9C/)
+
 * [EasyShu](https://www.bilibili.com/video/BV1a6kRYpE7W?vd_source=8764f6c9f32bdb5a73fbda89a5f547f5)
-
 
 
 
