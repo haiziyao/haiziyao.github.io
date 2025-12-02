@@ -97,3 +97,203 @@ java中异于其他语言的重要的一点还有String的比较
 == 还是 .equals()    请记住，== 只用来判断对象是否处于一个‘内存地址’，而不能比较内容
 ##### String
 书上在这里详细地说了String类，那我们也详细写一些
+``` java
+char charAt(int index)        //不怎么推荐使用吧，除非你保证你知道底层原理，不会出现···
+boolean isEmpty()
+boolean isBlank()
+boolean equals(Object other)
+boolean equalsignoreCase(String other)
+boolean startWith(String prefix)
+boolean endWith(String suffix)
+int indexOf()  //这个方法有很多变种
+String replace(CharSequence oldstr,CharSequence newstr)
+String substring(int begin)
+String substring(int begin,int end)
+String toLowerCase()
+String toUpperCase()
+String strip()   //这个函数要记住，不要使用trim()
+String join(CharSequence dolimiter, CharSequence elements) 
+String repeat(int count)  //java11 才加  
+
+String greeting = """
+He\
+llo
+World""";
+//这个转义符可以和下一行连接
+
+```
+上面的CharSequence是一个属于字符串的接口，String,StringBuilder,StringBuffer,CharBuffer都属于这个接口
+
+直接使用Ctrl + H / Ctrl + Alt + U 查看类继承
+##### StringBuilder | StringBuffer
+这俩的api都是一样的，不过，StringBuilder效率更高，但StringBuffer支持多线程
+``` java
+StringBuilder builder = new StringBuilder()
+builder.append(ch)
+builder.append(str)
+String resultstr = builder.toString()
+
+builder.appendCodePoint(int cp) //追加一个码点, 我是新我不用
+builder.insert(int offset,char c)
+builder.delete(int startindex,int endindex)
+
+```
+##### java OI
+``` java
+//初学者OI套
+import java.util.*
+
+Scanner in = new Scanner(System.in);
+String str = in.nextLine();   //提取一行，以换行符结束
+String word = in.next();   //遇见空格就停止
+int age = in.nextInteger();
+
+System.out.print()
+
+// Console类
+Console cons = System.Console()
+String username = cons.readLine("User name:")
+//不过这个玩意，你在IDEA里面一定是null，只有在控制台里面才能正常执行
+
+//Scanner 的api
+Scanner(InputStream in)
+String nextLine()
+String next()
+int nextInt()
+double nextDouble()
+
+new Scanner(Path.of(""),StandardCharsets.UTF-8)
+//sout
+System.out.print();
+System.out.printf();
+System.out.println();
+
+System.out.printf() //沿用c风格
+
+```
+>我们这里补充许多java coder 都会遇到的一个问题，在IDEA里，总是找不到jvm启动的时候的执行目录在哪里
+我们这里来说一下，调用 System.getProperty("user.dir") 就可以知道了 
+
+``` java
+System.out.println(System.getProperty("user.dir"));
+Scanner file = new Scanner(Path.of("statics/a.txt"), StandardCharsets.UTF_8);
+System.out.println(file.nextLine());
+```
+对于OI先说到这里不能废太多篇幅
+##### 控制流程
+条件循环分支
+``` java
+if - else if - else;
+while();
+do{}while();
+for();
+switch (){};
+//这里我们说说switch
+switch (choice) {
+	case 1 -> ···
+	case 0 -> ···
+	case 2 -> ···
+	case 3 -> ···
+	default -> 
+}
+switch (choice) {
+	case 1 : ··· break;
+}
+
+//下面我们来看看优美的switch
+//无直通行为
+int num = switch (choice) {
+	case 1,2 -> {
+		System.out.print("我赢");
+		yield 6;
+	} 
+	case 3 -> yield 7;
+	default -> yield 8;
+}
+switch (choice) {
+	case 1,2 -> {
+		System.out.print("我赢");
+		num = 6;
+	} 
+	case 3 -> num = 7;
+	default -> num = 8;
+}
+
+//把上面箭头换成冒号，就有直通了，你需要加break,不加就死，但是yield自动返回
+int num = switch (choice) {
+	case 1,2 : {
+		System.out.print("我赢");
+		yield 6;
+	} 
+	case 3 : yield 7;
+	default : yield 8;
+}
+switch (choice) {
+	case 1,2 : {
+		System.out.print("我赢");
+		num = 6;
+		break;
+	} 
+	case 3 : num = 7;break;
+	default : num = 8;
+}
+//注意，在switch中不能使用return break continue ，有需求就用yield
+//当你复习到这里，能够理解这里的四种switch，其实就很强了
+//对于加注解， 这个不做要求
+```
+##### 大数
+``` java
+import java.math.BigInteger,BigDecimal;
+
+BigInteger a = BigInteger.valueOf(100);
+BigInteger reallybig = BigInteger.valueOf("222222222222222222222222222222222222222222222222222222");
+a.add(a);
+a.multiply(a);
+a.sqrt();
+a.mod(a);
+a.divide(a);
+a.compareTo(a); //比较返回结果是int 的 0 或者正负数
+
+```
+>在旧 Java（JVM 编译为 tabelswitch/lookupswitch）中：
+switch 对小整数范围最快（O(1) 查表）
+switch 对稀疏值用二分查找（O(log n)）
+if else 是顺序判断（O(n)）
+这个知识点绝对是阴间了
+但是，现代JVM已经优化的很好了，没什么区别。
+这些阴间的知识点还是不要上桌了
+
+![alt text](../../img/java/image.png)
+##### 数组
+``` java
+//java对你的数组很宽限
+int[] a = {
+	1001,
+	1111,
+}//你多了一个逗号，java是允许的
+//匿名函数优化
+smallPrimes = new int[] {17,16,15};
+//等价于
+int[] temp = {17,16,15};
+Primes = temp;
+//java允许长度为0的数组
+new ele[0]
+new ele[] {}
+//以上都是length为0 的数组，但不是null
+```
+``` java
+//for each 拯救遍历
+for(n : num) {}
+//Java中一般的赋值都是浅拷贝
+//如果要深拷贝
+newarr = Arrays.copy(oldarr,2*oldarr.length)
+
+//排序
+import java.util.Arrays
+
+Arrays.sort(num);  //底层是优化了的快速排序
+Arrays.binarySearch(T[] t,T t1);
+Arrays.binart
+```
+##### 命令行参数
+String[] args ，命令行参数存储在args
