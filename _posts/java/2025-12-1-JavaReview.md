@@ -476,3 +476,158 @@ public Class(String aName,int aAge){
 1.构造器赋值
 2.声明中赋值
 3.在初始化块赋值
+不论是普通代码块还是静态代码块，在实际开发中需求并不是很大
+这里有一个同步代码块的概念，与线程有关，以后可能会遇到
+
+##### 析构函数 
+这里后面会详细涉及到jvm的垃圾处理机制，
+不过，这里还是要提前说明一下，对于finalize，这个方法已经被废弃了，请不要使用
+
+##### 记录
+java干什么都要new 一个类，然后写上getters，setters，然后构造器，tostring
+
+想象一下，假如你只想定义一个Point，但是莫名奇妙就得写上面的一大堆，还是人类吗？还有人类吗？
+
+所以在JDK14，引入了记录这个东西，最终在JDK16中发布
+``` java
+record Point(int x, int y) {}
+
+//相当于
+final class Point extends Record {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+	//这里可能会感到有点奇怪
+	//但java就是这么处理的，不适用getter， setter
+	//而是使用这样的一个字段函数
+    public int x() {
+        return this.x;
+    }
+
+    public int y() {
+        return this.y;
+    }
+
+    public String toString() {
+        return String.format("Point[x=%s, y=%s]", x, y);
+    }
+
+    public boolean equals(Object o) {
+        ...
+    }
+    public int hashCode() {
+        ...
+    }
+}
+
+//要记住这里，字段是private final的
+//不能直接去访问
+
+```
+##### java的包
+>在java中，import还是挺好用的
+但java中其实还有一个静态导入的东西，比如：
+import java.util.System.*
+这样之后，你就可以
+out.print()
+put.exit()
+
+##### java一些原生工具
+* jar包
+
+``` bash
+jar cfm app.jar manifest.mf *.class
+java -jar app.jar
+```
+* javadoc文档注释
+
+``` bash
+javadoc -encoding UTF-8 -charset UTF-8 -d doc Main.java
+```
+* 打包TankGame
+
+``` bash
+#javac编译
+javac -encoding UTF-8 *.java
+#创建指定文件
+touch manifest.txt
+# 注明：Main-Class: Main   如果有包名，还得写包名 hzy.Main 
+#注意要留一行空行，不然是非法的
+
+# 打jar包
+jar cfm tankgame.jar manifest.txt *.class
+
+#打包为exe
+jpackage --name TankGame --app-version 1.0.1 --input build --main-jar tankgame.jar --main-class TankGame --type exe --icon favicon.ico --win-dir-chooser
+# --name 最终exe的名字
+# --input 指向jar所在目录
+# --main-jar 指定jar
+# --main-class 指定主类名
+# --type 指定安装程序
+# --icon 指定图标
+# --win-dir-chooser自定义安装目录
+```
+上面的操作没有指定目录，可能会很乱
+
+下面给一个gpt的
+``` bash
+@echo off
+echo ===== 清理旧文件 =====
+rmdir /s /q build 2>nul
+rmdir /s /q dist 2>nul
+
+echo ===== 创建目录 =====
+mkdir build\classes
+mkdir dist
+
+echo ===== 编译 Java 源码 =====
+javac -encoding UTF-8 -d build\classes src\*.java
+
+echo ===== 生成 MANIFEST 文件 =====
+echo Main-Class: Main > build\manifest.txt
+echo. >> build\manifest.txt
+
+echo ===== 打包 JAR =====
+jar cfm build\tankgame.jar build\manifest.txt -C build\classes .
+
+echo ===== 打包 EXE（需要 WiX） =====
+jpackage ^
+  --name TankGame ^
+  --input build ^
+  --app-version 1.0.1 ^
+  --main-jar tankgame.jar ^
+  --main-class Main ^
+  --type exe ^
+  --icon assets\favicon.ico ^
+  --dest dist
+  --win-dir-chooser
+echo ===== 完成！！！ =====
+echo JAR 生成于：build\tankgame.jar
+echo EXE 安装包生成于：dist\TankGame.exe
+pause
+
+```
+>这个东西说的太久了，我慢慢又找出了一套技术栈，既然这个这么好用，那我们直接使用javaFx开发一个桌面端系统其实也是不错的
+
+##### 注释
+* javadoc
+
+>会用这个，那我承认你是个高手
+* 类注释
+
+> /**
+	这个就很好用
+ */
+* 方法注释
+
+* 字段注释
+
+* 通用注释
+
+* 包注释
+
+### 第五章
