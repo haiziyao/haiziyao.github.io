@@ -284,6 +284,8 @@ new ele[] {}
 ``` java
 //for each 拯救遍历
 for(n : num) {}
+
+
 //Java中一般的赋值都是浅拷贝
 //如果要深拷贝
 newarr = Arrays.copy(oldarr,2*oldarr.length)
@@ -295,5 +297,182 @@ Arrays.sort(num);  //底层是优化了的快速排序
 Arrays.binarySearch(T[] t,T t1);
 Arrays.binart
 ```
+
+>这里我们需要补充一点，java有了foreach，为什么还要Iterator，以及，這两者有什么区别？
+实际上，java中的for each 底层是依赖于Iterator的；
+第二，for each有很多的受限，比如，for each内部几乎无法停止，无法删除某一个元素(报错)
+所以，for each只是一个简化工具
+另外，对于自己创建的Object类，没有实现Iterator接口，就无法使用for each
 ##### 命令行参数
 String[] args ，命令行参数存储在args
+``` bash
+java Message -h world
+# java中会存储 -h 为 args[0]
+# 记住，Message不会被存储
+```
+### 第四章 对象与类
+
+**java中所有对象都在堆中**
+
+##### LocalDate类
+ ``` java
+LocalDate now = LocalDate.now();
+LocalDate date = LocalDate.of(2020, 1, 1);
+int year = date.getYear();
+int month = date.getMonthValue();
+date = now.plusDays(1000);
+System.out.println(date);
+ ```
+#####  java类的“须知”
+* 构造器
+
+``` java
+//在构造器里面，我极其推荐你去使用null引用
+public ClassName(Type1 param1,Type2 param2){
+	this.field1 = Objects.requireNonNullElse(param1,"unknow");
+	this.field2 = Objects.requireNonNull(param2," field2 can be null ");
+}
+
+```
+
+* 推荐使用var
+
+``` java
+//在c++中，很多程序员诟病总是需要同时维护.h 和 .cxx 
+// 在java中，你也被强制写 new 类名()
+AcomplexClassName acomplexclassexample = new AcomplexClassName(param1,param2);
+//这种感觉和C++程序员一样头大
+//在臃肿的c++中，都支持下面写法
+AcomplexClassName example(param1,param2);
+//但是java不支持
+
+//在jdk 10 中，java添加了var关键字，算是省了一半力气吧
+var example = new AcomplexClassName(param1,param2);
+
+//所以，无论如何，我都推荐你写var
+//但是，我建议你不要乱用,尤其对于数值型
+var  intnum = 1000L
+var tinynum = 1000.3f
+//你要是写出上面的代码，你就等死吧
+
+//此外，var只允许生命局部变量
+```
+* 莫名其妙的get,set
+
+``` java
+//对于初学者，可能对于setters和getters感到莫名奇妙，不过，大家都是从新手过来的。
+//对于类的一切field，都建议你设置为  private
+//想要查值或者想要重新赋值，都必须通过一个暴露的方法
+//禁止对field直接进行操作
+```
+
+* 4.3.8
+
+>先留着
+
+* final 的 使用
+
+``` java
+private final StringBuilder evaluations;
+evaluations = new StringBuilder;
+
+evaluations.append()
+//上面这个final仅仅用来修饰StringBuilder的指针，所以，
+//对于一些可变类型要   慎 用！！！ 
+```
+
+* static 
+
+``` java
+//有一些人认为，静态字段应该被叫为“类字段”
+class Employee{
+	static int All_id = 1;
+}
+//声明之后，这个方法属于整个类，在类创建的时候就已经确定了
+
+
+//之前说，不建议有公共字段，但被final的字段可以是公共的，因为已经不可改了
+```
+
+##### 工厂方法
+>从前面可以看出来，构造器是有弊端的，比如我不能给构造请命名，我不能让构造器返回一个其他对象
+等等限制，所以有了工厂方法（ factory method ）
+ 
+
+##### Java总是采用按值调用
+java中方法会得到所有参数值的一个副本，方法不能修改传递给它的任何参数变量的内容
+>这一点你会意识到java和众多语言不同的地方
+在C++中，允许你传入指针，允许你传入引用···但是在java里，函数永远只会拿到一份拷贝信息 
+
+>可能会有人疑惑，java的方法如果传入一个对象，他们发现，对象仍旧可以修改。
+因此，有人认为，java对对象采用的是按照引用调用。
+实际上，这是错的
+java的方法得到的是一份副本，只不过这个副本和原本的类名指向了同一个对象
+下面将进行举例说明
+``` java
+public static void swap(Class a,Class b){
+	Class temp = a;
+	a = b ;
+	b = temp ;
+}
+//如果java采用引用传递，那么a，b就可以交换
+//但实际上，Java使用的是值传递
+//底层相当于
+public static void swap(Class a,Class b){
+	Class x = a;
+	Class y = b; 
+	Class temp = x;
+	x = y ;
+	y = x ;
+	//丢弃x，y
+}
+//所以当然不会对原值有任何影响。 
+```
+ 
+##### 构造器
+* 重载
+
+>对于方法，构造器(构造方法)，都允许重载。
+java依靠签名来分辨不同的方法
+``` java
+indexOf(int,int)
+indexOf(String,int)
+index(int)
+//可见，签名只与函数名和参数有关，跟返回值无关
+int getA(int)
+double getA(int)
+//如果写出上面的只有返回值不同，那就很逆天了
+```
+* 初始化
+
+>java中，对于构造器，如果你没有显示（传参数）初始化所有字段，会自动赋值默认值，(0,false,null)
+* 无参构造器
+>如果你不写构造器，java会帮你写一个无参构造器
+如果你写了，java就不会帮你实现无参构造器了
+##### this
+>java中的this甚至能使用其他构造器
+``` java
+public Class(double s){
+	this("renji",s);
+}
+```
+我们主要想说的就是构造器的两种不同习惯
+``` java
+public Class(String name, int age){
+	this.name = name ;
+	this.age = age;
+}
+
+public Class(String aName,int aAge){
+	name = aName;
+	age = aAge;
+}
+
+//你更喜欢哪一种方式呢？
+```
+
+##### 初始化块
+>java初始化字段的方式还有第三种！
+1.构造器赋值
+2.声明中赋值
+3.在初始化块赋值
