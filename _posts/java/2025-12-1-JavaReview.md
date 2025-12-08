@@ -269,7 +269,7 @@ if else 是顺序判断（O(n)）
 但是，现代JVM已经优化的很好了，没什么区别。
 这些阴间的知识点还是不要上桌了
 
-![alt text](../../img/java/image.png)
+![alt text](/img/java/image.png)
 ##### 数组
 ``` java
 //java对你的数组很宽限
@@ -886,7 +886,7 @@ public abstract sealed class Test2 permits Json1,Json2 {
     
     }
 ```
-![alt text](../../img/java/image3.png)
+![alt text](/img/java/image3.png)
 
 ##### 反射(框架的灵魂)
 ``` java
