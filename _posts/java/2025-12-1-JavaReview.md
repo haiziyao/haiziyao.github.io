@@ -68,10 +68,12 @@ tags:
 
 ##### 变量与常量
 >这部分hzy并没有完全按照书上的逻辑推进，而是只写了相对重要或者不熟悉的，对于完全熟悉的，则自动跳过
+
 * java10 支持了 var 自动推断变量类型
 * final 定义常量
 * 类常量
 	>public static final double CM_PER_INCH = 2.54
+
 * const 是java保留的关键字，但没有使用
 * 枚举类型： enum
 * Math类
@@ -84,14 +86,18 @@ tags:
 Math类中都是基于浮点数的，如果想要一个精确的结果，使用StrictMath类
 * 经典余数问题
 >新手往往绕不开，一个余数到底是正数还是负数，往往会需要做一些优化操作，保证余数不是负数，这里先不探究，我记得之前研究过，把笔记移植过来
+
 * 类型转换
 	* 隐式转换 这里需要插一张图，掠过了先
 	* 强制转换
 	>int a = (int) Math.round(x)
+
 * java的移位运算符
 > jav中有>>和>>>所以能很好，准确处理高位是按照原来的填充，还是补0，C++则不好确定>>的高位的处理
+
 * java中字符串类型String是不可变类型
 > 也就是说，我们无法通过‘字符数组’这种方式改变字符串
+
 比如，把“Hello”改为“Hellp”，java没有update方法，我们只能用substrin()提取子串再拼接
 java中异于其他语言的重要的一点还有String的比较
 == 还是 .equals()    请记住，== 只用来判断对象是否处于一个‘内存地址’，而不能比较内容
@@ -303,6 +309,7 @@ Arrays.binart
 第二，for each有很多的受限，比如，for each内部几乎无法停止，无法删除某一个元素(报错)
 所以，for each只是一个简化工具
 另外，对于自己创建的Object类，没有实现Iterator接口，就无法使用for each
+
 ##### 命令行参数
 String[] args ，命令行参数存储在args
 ``` bash
@@ -617,11 +624,13 @@ pause
 * javadoc
 
 >会用这个，那我承认你是个高手
+
 * 类注释
 
 > /**
 	这个就很好用
  */
+
 * 方法注释
 
 * 字段注释
@@ -631,6 +640,7 @@ pause
 * 包注释
 
 ### 第五章
+
 ##### 继承
 ``` java
 public class Manager extends Employee{
@@ -662,6 +672,7 @@ if(dog instanceof Animal)  //true
 ##### equal()
 >在我们重写equals的时候，会纠结于
 到底使用 instanceof 还是 .getClass()进行判断
+
 ``` java
 //最标准的步骤
 
@@ -727,7 +738,7 @@ System.out.println(student.toString());
 
 ##### 标准写法
 ``` java
- 	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -758,9 +769,11 @@ public  void  add(Integer i){
 ```
 这个函数有效果吗？
 答案是没有，为什么呢？
+
 >首先第一点，我们之前说过基本类型的包装类的底层是一个value字段
 private final int value;
 无法更改，那么Interger++时，值又是怎么变化的呢？
+
 ``` java
 //底层实现 i++
 	//自动拆箱
@@ -873,7 +886,7 @@ public abstract sealed class Test2 permits Json1,Json2 {
     
     }
 ```
-![alt text](./img/image3.png)
+![alt text](../../img/java/image3.png)
 
 ##### 反射(框架的灵魂)
 ``` java
@@ -900,6 +913,7 @@ public void stage1() throws ClassNotFoundException, NoSuchMethodException, Invoc
 >在我们之前Tankgame的开发中，最后打jar包时候，那些FileReader什么的都报错。
 (虽然是代码功底问题，但是有更好的方法)
 这里提供一个"resource"类
+
 ``` java 
 public class Resource {
     public static void main(String[] args) {

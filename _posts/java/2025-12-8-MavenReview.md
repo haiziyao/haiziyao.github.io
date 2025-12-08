@@ -103,7 +103,7 @@ so easy
 * 报告
 * 打包 mvn package 
 * 部署
-![alt text](./img/image.png)
+![alt text](../../img/java/image1.png)
 ``` bash
 mvn clean 
 mvn clean package
@@ -206,4 +206,4 @@ site-deploy
   </dependency>
 </dependencies>
 ```
-![alt text](./img/image2.png)
+![alt text](../../img/java/image2.png)
