@@ -631,3 +631,323 @@ pause
 * 包注释
 
 ### 第五章
+##### 继承
+``` java
+public class Manager extends Employee{
+
+}
+
+//阻止继承
+public final class Massager{
+
+}
+//阻止覆写
+public final String getName(){
+
+}
+
+//向上转型（Upcasting）：一定安全，不需要强转
+Animal a = new Dog();
+
+//向下转型（Downcasting）：必须满足“真实类型是目标类或其子类”
+Animal dog = new Dog();
+Dog a = dog;
+if(dog instanceof Animal)  //true
+```
+##### 访问权限
+* public
+* protedted //只允许子类和同包访问
+* private //只能自己用
+
+##### equal()
+>在我们重写equals的时候，会纠结于
+到底使用 instanceof 还是 .getClass()进行判断
+``` java
+//最标准的步骤
+
+//判断二者是否相同 
+if(this == otherobj ) return true;
+//判断是否非空
+if(otherobj ==  null) return false;
+//判断是否有相同语义来进行选择getClass和instanceof
+	//相同语义
+	if(!otherobj instanceof ThisClss obj) return false;
+	//这句可能有点不理解,JDK16+,比较otherobj是否是thisClass,是的话,把otherobj转为obj(ThisClass类)
+		// 执行对字段的判断
+	//不同语义
+	if(!this.getClass() == otherobj.getClass())  return false;
+	otherobj = (ThisClass) otherobj;
+		// 执行对字段的判断
+
+
+//Object的equals方法十分简单
+public Object equals(Object obj){
+	return this == obj;
+}
+//所以,必须自己重新equals方法,不然和==没什么区别
+
+```
+##### hashCode()
+``` java
+//hashCode定义在Object类
+//也就是说,所有对象都有hashcode,对于一些对象,底层重写了此方法
+//比如String
+String s = "sb" ;
+String b = "sb" ;
+Sout(s.hashCode() == b.hashCode())
+
+//对于有多个字段
+return Objects.hashCode(obj1,obj2);
+```
+##### toString()
+``` java
+@Override
+    public String toString() {
+        return "Student{" +
+                "value=" + value +
+                ", age=" + age +
+                '}';
+    }
+
+//在我们调用toString方法的时候
+//建议写法
+sout(""+ x);
+//而不是
+sout(x.toString())
+
+//这样写的好处是，如果x是一个基本类型，这个语法仍然不报错""+x
+//其实也可以
+sout(x)
+
+
+System.out.println(student);
+System.out.println(student+"");
+System.out.println(student.toString());
+```
+
+##### 标准写法
+``` java
+ 	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false; //这个的作用是什么？为了比较公有字段
+        Student student = (Student) o;
+        return age == student.age;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(age);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "value=" + value +
+                ", age=" + age +
+                '}';
+    }
+```
+##### 基本类型的包装类
+首先我们来探究一个好玩的东西，自动拆箱装箱
+``` java 
+public  void  add(Integer i){
+	i++;
+}
+```
+这个函数有效果吗？
+答案是没有，为什么呢？
+>首先第一点，我们之前说过基本类型的包装类的底层是一个value字段
+private final int value;
+无法更改，那么Interger++时，值又是怎么变化的呢？
+``` java
+//底层实现 i++
+	//自动拆箱
+	int i = i.intValue();
+	i++;
+	//自动装箱
+	Integer new_i = Integer.valueOf(tmp);
+	i = new_i;
+//由于java总是值拷贝，我们传参i，在函数内部其实是i_copy
+//也就是，在函数内部：
+	i_copy = new_i ;
+	//与我们的i没有任何关系，所以······
+```
+``` java
+//常用方法
+int a = Integer.parseInt("10086");
+int a_2 = Integer.parseInt("100010",2);
+
+Integer c = Integer.valueOf("10086");
+Integer c_2 = Integer.valueOf("100110",2);
+
+//如果你不够熟悉方法，就可能不知道下面这几个是什么类型的
+var a = Integer.parseInt("10086");
+var a_2 = Integer.parseInt("100010",2);
+
+var c = Integer.valueOf("10086");
+var c_2 = Integer.valueOf("100110",2);
+
+//toString()方法默认使用10进制，想使用其他进制和上面的方法一样，给一个radix
+```
+##### 可变参数
+``` java
+@Test
+public void try2(){
+	deal_int(1,2,3,4,5);
+	deal_int2(new int[]{1, 2, 3, 4, 5} );
+}
+
+
+public void deal_int(int... vales){
+	int temp = Integer.MIN_VALUE;
+	for(int i : vales){
+		temp = (i > temp) ? i : temp;
+	}
+	System.out.println(temp);
+}
+public void deal_int2(int[] vales){
+	int temp = Integer.MIN_VALUE;
+	for(int i : vales){
+		temp = (i > temp) ? i : temp;
+	}
+	System.out.println(temp);
+}
+```
+##### 抽象类与抽象函数
+* 抽象类可以没有抽象函数
+* 有抽象函数一定是抽象类
+* 抽象类不可以被实例化，即不能被new
+* 抽象类可以做对象变量
+``` java
+public abstract class Person{
+	public abstract String getDescription(){
+
+	}
+}
+
+```
+##### 枚举类
+``` java
+public class test01 {
+    public static void main(String[] args) {
+        String s = "SMALL";
+        Size size = Size.valueOf(s);
+        System.out.println(size);
+        System.out.println(size.getValue());
+
+		System.out.println(size.ordinal());
+        System.out.println(size2.ordinal());
+        
+        //这个函数比较两个的ordinal,返回一个int
+        System.out.println(size.compareTo(size2));
+    }
+}
+
+enum Size{
+    SMALL("S"),LARGE("L");
+
+    private  Size(String value) {this.value = value;}
+    public String getValue(){
+        return  value;
+    }
+    private String value;
+}
+```
+##### 密封类
+``` java
+public abstract sealed class Test2 permits Json1,Json2 {
+    
+}
+
+    final class Json1 extends  Test2{
+    
+}
+
+    sealed  class  Json2 extends  Test2{
+        
+    }
+    
+    final   class  Json22 extends  Json2{
+    
+    }
+```
+![alt text](./img/image3.png)
+
+##### 反射(框架的灵魂)
+``` java
+@Test
+public void stage1() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+	Person p = new Person();
+	Student s = new Student();
+	System.out.println(s.getClass()); //class aaa.Student
+	System.out.println(Student.class); //class aaa.Student
+	System.out.println(s.getClass() == Student.class); //true
+	String s1 = "aaa.Person";
+
+
+	Class cl = Student.class;
+	Class cl2 = Class.forName(s1);
+	Constructor perBuilder = cl2.getConstructor();
+
+	Object po = perBuilder.newInstance();
+	Person p2 = (Person) perBuilder.newInstance();
+
+	System.out.println(po.hashCode() + " " + p2.hashCode()); //226170135 381707837
+}
+```
+>在我们之前Tankgame的开发中，最后打jar包时候，那些FileReader什么的都报错。
+(虽然是代码功底问题，但是有更好的方法)
+这里提供一个"resource"类
+``` java 
+public class Resource {
+    public static void main(String[] args) {
+        Class cl = Resource.class;
+        URL url = cl.getResource("img/1.jpg");
+        //使用类.getResource()，会从类的位置找资源，非常方便
+        var img = new ImageIcon(url);
+
+        System.out.println(url); //会输出路径
+        System.out.println(img);
+    }
+}
+
+//我们还可以用resource目录，将其设置为Resource Root
+//然后直接
+getResource("/...")
+```
+提供一个比较专业的Resource类
+``` java
+import javax.swing.*;
+import java.net.URL;
+
+public final class Resources {
+
+    public static final ImageIcon PLAYER_ICON;
+    public static final ImageIcon BACKGROUND_ICON;
+    public static final ImageIcon LOGO_ICON;
+
+    static {
+        PLAYER_ICON = load("/img/player.png");
+        BACKGROUND_ICON = load("/img/background.jpg");
+        LOGO_ICON = load("/img/logo.png");
+    }
+
+    private Resources() {
+        //禁止 new，真正的工具类
+		//如果你想问，final类不是不能new吗，为什么还要给构造器
+		//如果你不给构造器，默认有public无参构造器，实际上是可以new Resource()，只不过会报错
+		//但是我们给一个private的无参构造器，甚至没有字段提示，所以就不可能不小心写出new的代码了
+    }
+
+    private static ImageIcon load(String path) {
+        URL url = Resources.class.getResource(path);
+        if (url == null) {
+            throw new IllegalArgumentException("资源未找到: " + path);
+        }
+        return new ImageIcon(url);
+    }
+}
+
+```
