@@ -11,7 +11,7 @@ tags:
 ---
 
 #### 写在前面
-本片文章将作为Java复习的第一篇文章，主要内容还是围绕java Collection Framework进行， 以及后面会有线程， 高级语法等。
+本片文章将作为Java复习的第一篇文章 
 
 重点还是在探究一下java更多的底层， 加深对语言的了解。
 
@@ -19,7 +19,9 @@ tags:
 
 >其实，我还是挺感慨的，时隔大半年，HZY再次打开了IDEA， 希望这是一次比较愉快的旅行
 
-## JAVA核心技术卷1
+## JAVA核心技术卷1 
+>本篇文章为 (1~5章节) 
+第5章 包含反射！
 ### 第一章 Java程序设计概述
 #### Java的优点
 * Java除了解释器以外，还有即时编译的功能，在一些执行比较频繁的代码上，将字节码序列转为机器码，提升速度
@@ -196,14 +198,14 @@ for();
 switch (){};
 //这里我们说说switch
 switch (choice) {
-	case 1 -> ···
-	case 0 -> ···
-	case 2 -> ···
-	case 3 -> ···
+	case 1 -> ...
+	case 0 -> ...
+	case 2 -> ...
+	case 3 -> ...
 	default -> 
 }
 switch (choice) {
-	case 1 : ··· break;
+	case 1 : ... break;
 }
 
 //下面我们来看看优美的switch
