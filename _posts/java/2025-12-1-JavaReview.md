@@ -967,3 +967,132 @@ public final class Resources {
 }
 
 ```
+java.lang.Class
+``` java 
+Field[] getFields();   // 拿到公共字段，包括超类字段
+Field[] getDeclaredField(); // 拿到所有字段，不包括超类的，
+//反射类里面所有类似的方法都是这样 
+
+Method[] getMethods();
+Method[] getDeclaredMethods();
+
+Constructor[] getConstructors();
+Constructor[] getDeclaredConstructors();
+
+isInterface();
+isEnum();
+isRecord();
+RecordComponent[] getRecordComponents();
+String getPackageName();
+
+```
+java.lang.reflect.Field
+java.lang.reflect.Method
+java.lang.reflect.Constructor
+``` java
+Class getDeclaringClass(); //返回定义这个FMC(上面那三个)的Class类
+Class getExceptionTypes(); //返回异常类的数组
+int getModifiers();  //得到修饰符，用数字表示
+String getName(); 
+Class getParameterTypes();  //拿到参数类型数组
+Class getReturnType(); //返回值类型
+```
+java.lang.reflect.RecordComponet
+``` java
+String getName();
+Class<?> getType();
+Method getAccessor();
+```
+java.lang.reflect.Modifier
+``` java
+static String toString(int modifiers);
+static boolean isAbstract(int modifiers);
+static boolean isFinal(int modifiers);
+static boolean isInterface(int modifiers);
+static boolean isNative(int modifiers);
+static boolean isPrivete(int modifiers);
+static boolean isProtected(int modifiers);
+static boolean isPublic(int modifiers);
+static boolean isStatic(int modifiers);
+static boolean isStrict(int modifiers);
+static boolean isSynchronized(int modifiers);
+static boolean isVolatile(int modifiers);
+```
+典型示例：利用反射修改Field
+``` java
+ public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+        Student stu = new Student();
+        stu.age = 10;
+        Class cl = stu.getClass();
+        Field f1 = cl.getDeclaredField("age");
+        f1.setAccessible(true);
+        f1.set(stu,11);
+        System.out.println(stu.age);
+		
+		//
+        MethodHandles.Lookup lookup = MethodHandles.lookup(); //创建一个观察者
+        lookup.in(cl);  //把视角移到class
+        VarHandle vh = lookup.findVarHandle(cl, "age", int.class);
+        vh.set(stu,100);
+        System.out.println(stu.age);
+    }
+
+//在java9 以后，出现了Field的上位替代
+//VarHandle  Lookup
+class A {
+    int x;
+}
+
+VarHandle vh = MethodHandles.lookup()
+        .in(A.class)
+        .findVarHandle(A.class, "x", int.class);
+
+A obj = new A();
+vh.set(obj, 42);
+System.out.println(vh.get(obj)); // 42
+
+```
+java.lang.reflect.AccessibleObject
+``` java
+void setAccessible(boolean flag);  
+boolean trySetAccessible();    
+boolean canAccess(Object obj);
+static void setAccessible(AccessibleObject[] array, boolean flag);
+```
+java.lang.Class
+``` java
+Field getField(String name);
+Field[] getFields();
+Field getDeclaredField(String name);
+Field[] getDeclaredFields();
+```
+java.lang.reflect.Field
+``` java
+Object get(Object obj);
+void set(Object obj,Object newValue);
+```
+##### 数组的反射
+``` java
+//java.lang.Class
+boolean isArray();
+Class<?> getComponentType();
+Class<?> componentType();
+Class<?> arrayType(); //返回数组被描述的类
+
+//java.lang.reflect.Array  //区分 java.utils.Array
+static Object get(Object array,int index);
+
+static void set(Object array,int index, Object newVal);
+
+static int getLength(Object array);
+static Object newInstance(Class componentType, int length);
+static Object newInstance(Class componentType[], int length);
+```
+##### invoke
+``` java
+//java.lang.reflect.Method
+public Object invoke(Object implicitParamter,Object[] explicitParameters);
+//第一个参数，如果是非静态方法，直接不管
+//如果是静态方法，传入一个 null
+//返回值是基本类型的会自动装包
+```
