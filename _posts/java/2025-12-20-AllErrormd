@@ -1,0 +1,19 @@
+---
+layout:     post
+title:      "ALl Errors that Make you angry ? "
+subtitle:   " \"CNM,AI\""
+date:       2025-12-21 12:00:00
+author:     "HZY"
+header-img: "img/java/1.png"
+catalog: true
+tags:
+    - Error
+---
+## 写在前面
+我建议，以后遇到的所有环境配置问题，只能问AI一次，AI一次配备出来就不要问了，问就是浪费时间，AI只会给你一坨大便。  
+#### java: 警告: 源发行版 17 需要目标发行版 17
+我就列出来了下面几个可能配置错误导致这个原因的几个地方，ai是傻狗
+![alt text](/img/java/error/image.png)
+![alt text](/img/java/error/image-1.png)
+![alt text](/img/java/error/image-2.png)
+![alt text](/img/java/error/image-3.png)
