@@ -686,60 +686,60 @@ class Child extends Parent {
 
 1. 不能使用基本类型实例化类型参数
 
->List<int> list = new ArrayList<>(); // 编译错误
-List<Integer> list = new ArrayList<>(); 
+    >List<int> list = new ArrayList<>(); // 编译错误
+    List<Integer> list = new ArrayList<>(); 
 
 2. 运行时类型查询只适用于原始类型
 
->if (obj instanceof List<String>) { } // 编译错误
+    >if (obj instanceof List<String>) { } // 编译错误
 
 3. 不能创建参数化类型的数组
 
->List<String>[] arr = new List<String>[10]; // 编译错误
+    >List<String>[] arr = new List<String>[10]; // 编译错误
 
 4. Varargs警告
 
->@SafeVarargs
-static <T> void printAll(T... args) { }
+    >@SafeVarargs
+    static <T> void printAll(T... args) { }
 
 5. 不能实例化类型变量
 
->public static <T> T create() {
-    return new T(); // 编译错误
-}
+    >public static <T> T create() {
+        return new T(); // 编译错误
+    }
 
->public static <T> T create(Class<T> clazz) throws Exception {
-    return clazz.getDeclaredConstructor().newInstance();
-}       //替代方案
+    >public static <T> T create(Class<T> clazz) throws Exception {
+        return clazz.getDeclaredConstructor().newInstance();
+    }       //替代方案
 
 6. 不能构造泛型数组
 
->public static <T> T[] createArray(int n) {
-    return new T[n]; // 编译错误
-}
+    >public static <T> T[] createArray(int n) {
+        return new T[n]; // 编译错误
+    }
 
->public static <T> T[] createArray(Class<T> clazz, int n) {
-    return (T[]) Array.newInstance(clazz, n);
-}
+    >public static <T> T[] createArray(Class<T> clazz, int n) {
+        return (T[]) Array.newInstance(clazz, n);
+    }
 
 7. 泛型类的静态上下文中类型变量无效
 
->class Box<T> {
-    static T value; // 编译错误
-}
+    >class Box<T> {
+        static T value; // 编译错误
+    }
 
 8. 不能抛出或捕获泛型类的实例
 
->class MyException<T> extends Exception { } // 编译错误
+    >class MyException<T> extends Exception { } // 编译错误
 
 9. 可以取消对检查型异常的检查
 
->public static <T extends Throwable> void sneakyThrow(Throwable t) throws T {
-    throw (T) t;
-}
+    >public static <T extends Throwable> void sneakyThrow(Throwable t) throws T {
+        throw (T) t;
+    }
 
 10. 注意擦除后的冲突 
-详细见上面桥方法
+    详细见上面桥方法
 
 ##### 通配符类型
 为了解决一些问题
@@ -788,6 +788,8 @@ private static <T> void swapHelper(List<T> list, int i, int j) {
 }
 
 ```
+![alt text](/img/java/2cf16b8ab011b43697e4a5c899331c64.png)
+对于傻逼ai，我还是一句话，真信ai的这辈子有了
 ##### 泛型与反射，依赖注入
 ``` java
 public interface Factory {
