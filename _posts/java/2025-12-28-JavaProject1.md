@@ -446,3 +446,122 @@ springdoc:
     │ │ │ │ │ │
     * * * * * *
   ```
+
+#### 隐藏字段
+* 对于有些时候，我们希望隐藏掉`UserInfo`里面的password字段
+* 但是我们又懒得去做不同的vo
+* 所以我们直接选择偷懒
+* MP提供有现成的字段`@TableField(value = "password", select = false)`
+* 这里其实还有另一个比较好用的东西`@IgnoreJson`记得区分一下使用情景
+
+#### 密码处理
+  常用于处理密码的单向函数（算法）有MD5、SHA-256等，**Apache Commons**提供了一个工具类`DigestUtils`，其中就包含上述算法的实现
+
+``` xml
+<dependency>
+    <groupId>commons-codec</groupId>
+    <artifactId>commons-codec</artifactId>
+</dependency>
+```
+#### Mybatis-Plus update strategy
+
+使用Mybatis-Plus提供的更新方法时，若实体中的字段为`null`，默认情况下，最终生成的update语句中，不会包含该字段。若想改变默认行为，可做以下配置。
+* 全局配置
+
+在`application.yml`中配置如下参数
+
+``` xml
+mybatis-plus:
+global-config:
+    db-config:
+    update-strategy: <strategy>
+```
+
+**注**：上述`<strategy>`可选值有：`ignore`、`not_null`、`not_empty`、`never`，默认值为`not_null`
+
+* `ignore`：忽略空值判断，不管字段是否为空，都会进行更新
+* `not_null`：进行非空判断，字段非空才会进行判断
+
+* `not_empty`：进行非空判断，并进行非空串（""）判断，主要针对字符串类型
+
+* `never`：从不进行更新，不管该字段为何值，都不更新
+
+* 局部配置
+
+    在实体类中的具体字段通过`@TableField`注解进行配置，如下：
+
+    ```java
+    @Schema(description = "密码")
+    @TableField(value = "password", updateStrategy = FieldStrategy.NOT_EMPTY)
+    private String password;
+    ```
+
+
+#### 用户登录
+* Session
+* JWT
+
+``` xml
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-api</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-impl</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-jackson</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+#### 验证码生成工具
+
+```xml
+<dependency>
+<groupId>com.github.whvcse</groupId>
+<artifactId>easy-captcha</artifactId>
+</dependency>
+```
+#### 用户登录
+* 使用Interceptor进行请求拦截
+    * 特别注意要放行我们的swagger
+    * 放行登录的所有接口
+* 使用localthread存储用户信息，减少token解析次数
+
+#### @Conditional
+`@ConditionalOnProperty(name = "minio.endpoint)`
+
+#### 异步操作
+* 在 Spring Boot 主应用程序类上添加 `@EnableAsync` 注解
+* 在要进行异步处理的方法上添加 `@Async` 注解
+
+
+### 部署
+
+#### 代理
+* 正向代理
+* 反向代理
+#### block
+* main 
+    * user nginx;
+    * worker_process auto;  //会将cpu核数作为进程数
+    * error_log 配置全局错误日志文件路径
+* events block
+    比较难
+* http block 
+    * access_log: 指定访问日志的路径
+    * log_formart: 
+    * include 引入conf文件
+* server block //被http block引入
+    * listen: 端口号
+    * server_name: 域名或ip
+    * location /路径
+        * root  /var/  从本地拿资源
+        * proxy_pass http:  转发
+
+#### 案例
