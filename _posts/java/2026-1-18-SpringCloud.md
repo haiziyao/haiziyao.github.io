@@ -2,7 +2,7 @@
 layout:     post
 title:      "快速入门SpringCloud"
 subtitle:   " \"简单速通微服务\""
-date:       20256-1-18 12:00:00
+date:       2026-1-18 12:00:00
 author:     "HZY"
 header-img: ""
 catalog: true

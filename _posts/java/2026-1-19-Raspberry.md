@@ -2,7 +2,7 @@
 layout:     post
 title:      "树莓派"
 subtitle:   " \"速通树莓派\""
-date:       20256-1-19 12:00:00
+date:       2026-1-19 12:00:00
 author:     "HZY"
 header-img: ""
 catalog: true
