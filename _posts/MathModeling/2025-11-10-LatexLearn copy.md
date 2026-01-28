@@ -57,6 +57,7 @@ tags:
     * 请参照源代码，打开keywords ,内容如下
     >Keywords:Fighting Wildfires; Multi-Objective Optimization; Poisson Distribution; Tabu Search Algorithm; Sensitivity Analysis
     * 插入图片
+
     ``` latex
     \begin{figure}[htbp]  %h此处，t页顶，b页底，p独立一页，浮动体出现的位置
 		\centering  %图表居中
@@ -89,12 +90,14 @@ tags:
 使用我的代码替换你的代码，看看有什么不一样，并学会如何书写上下脚标
 * 数学公式的书写(请自行插入文件并查看效果)
     * 行公式
+
     ``` latex
     \begin{equation}\label{eq:heat}
     \frac{\partial u}{\partial t} - a^2 \left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2} \right) = f(x, y, z, t)
     \end{equation}
     ```
     * 大括号方程组
+
     ``` latex
     \begin{equation}
     \begin{cases}
@@ -105,6 +108,7 @@ tags:
     \end{equation}
     ```
     * 矩阵 和 行列式
+    
     ``` latex
     % 矩阵
     \[
