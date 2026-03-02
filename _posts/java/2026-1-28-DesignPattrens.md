@@ -1,4 +1,4 @@
----
+<!-- ---
 layout:     post
 title:      "Design Patterns"
 subtitle:   " \"我得学设计模式\""
@@ -8,7 +8,7 @@ header-img: ""
 catalog: true
 tags:
     - Java
----
+--- -->
 
 
  
