@@ -46,3 +46,59 @@ class GuardedObject{
 }
 
 ```
+
+### 生产者消费者
+
+``` java
+class MsgQueue{
+    private int capcity;
+    private LinkedList<Message> list = new LinkedList<Message>();
+
+    public MsgQueue(int capacity){
+        this.capcity = capacity;
+    }
+
+    public Message take(){
+        synchronized(list){
+            while(!list.isEmpty()){
+                try {
+                    list.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Message message = list.removeFirst();
+        list.notifyAll();
+        return message;
+    }
+
+    public void put(Message msg){
+        synchronized(list){
+            while(list.size()==capcity){
+                try {
+                    list.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        list.add(msg);
+        list.notifyAll();
+    }
+}
+
+final class Message{
+    private int id;
+    private Object value;
+
+    public int getId() {
+        return id;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+}
+
+```

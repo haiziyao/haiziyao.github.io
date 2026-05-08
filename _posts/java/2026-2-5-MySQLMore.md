@@ -714,6 +714,7 @@ meta data lock 当表有事务，则不能对元数据进行写入操作
 
 <img src="/img/2026-2-4-MySQLMore/20260205-211625.png" alt="20260205-211625.png" style="width:100%; height:auto;">
 
+
 <img src="/img/2026-2-4-MySQLMore/20260205-211756.png" alt="20260205-211756.png" style="width:100%; height:auto;">
 
 <img src="/img/2026-2-4-MySQLMore/20260205-211847.png" alt="20260205-211847.png" style="width:100%; height:auto;">
@@ -729,3 +730,61 @@ meta data lock 当表有事务，则不能对元数据进行写入操作
  <img src="/img/2026-2-4-MySQLMore/20260205-213836.png" alt="20260205-213836.png" style="width:100%; height:auto;">
 
  <img src="/img/2026-2-4-MySQLMore/20260205-214011.png" alt="20260205-214011.png" style="width:100%; height:auto;">
+
+ * 后台线程
+    * Master Thread
+    * IO Thread 
+    * Purge Thread    
+    * Page Cleaner Thread 
+
+<img src="/img/2026-2-5-MySQLMore/20260504-150504.png" alt="20260504-150504.png" style="width:100%; height:auto;">
+
+
+#### 事务原理
+
+* ACID
+
+<img src="/img/2026-2-5-MySQLMore/20260504-150732.png" alt="20260504-150732.png" style="width:100%; height:auto;">
+
+##### redo log 保证持久性
+
+* redo log buffer
+* redo log file
+* WAL 操作先写日志后更改
+    * logfile1 和 lofile0 循环写
+
+
+##### undo log 保证原子性
+* undo log 主要记录 逻辑日志，记录的是反向操作
+* undo log 销毁：
+* undo log 采用段的方式进行管理和记录，放在回滚段中
+
+
+#### MVCC (Mutil-Vesion Concurrency Control)
+* 当前读： 读取的是最新记录，并且其他事务不能修改
+    * select ... lock in share mode
+    * select ... for update insert delete
+
+* 快照读：
+    * 不加锁就是快照读，是非阻塞读
+    * Read Committed: 每次select都生成一个快照
+    * Repeatable Read: 开启事务后第一个select 语句才是快照读的地方
+    * Serializable:快照读退化为当前读
+
+
+    
+##### 隐藏字段
+
+* DB_TRX_ID： 最近修改事务ID
+* DB_ROLL_PTR： 回滚指针
+* DB_ROW_ID: 隐藏主键
+
+
+##### undo log
+
+
+#####  ReadView
+* m_ids
+* min_trx_id
+* max_trx_id
+* creator_trx_id
