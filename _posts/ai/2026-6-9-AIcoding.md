@@ -298,3 +298,45 @@ claude --dangerously-skip-permissions
 
 ### Claude Code 实战工作流
  
+#### 启动套件
+* claude.md
+* settings.json
+* .gitignore
+* Skills
+
+#### 自定义命令
+
+* .claude/commands/deploy.md
+
+### Skill 结构[P43]
+
+* SKILL.md
+
+``` bash
+
+---
+#元数据  Agent在读取的时候其实只读skills，只有用到才会读
+name:
+version:
+description:
+trigger:
+tools:
+author:
+---
+
+# 这里就是内容了
+
+## 执行步骤
+
+## 输出规范
+
+##
+
+##
+
+```
+
+* scripts/
+* resources/
+* references/
+* requirements.txt
