@@ -8,6 +8,19 @@
 
 // SW Version Upgrade Ref: <https://youtu.be/Gb9uI67tqV0>
 
+// Debounce flag: prevent multiple reloads from the same update wave
+var _swReloadScheduled = false;
+
+function scheduleAutoReload(reason) {
+  if (_swReloadScheduled) return;
+  _swReloadScheduled = true;
+  createSnackbar({
+    message: reason + ', auto-refreshing...',
+    duration: 1500
+  });
+  setTimeout(function() { location.reload(); }, 1500);
+}
+
 function handleRegistration(registration){
   console.log('Service Worker Registered. ', registration)
   /**
@@ -19,7 +32,9 @@ function handleRegistration(registration){
     installingWorker.onstatechange = (e) => {
       if (installingWorker.state !== 'installed') return;
       if (navigator.serviceWorker.controller) {
-        console.log('SW is updated');
+        // SW updated: auto-reload to let the new SW take over
+        console.log('SW is updated, auto-refreshing...');
+        scheduleAutoReload('App updated');
       } else {
         console.log('A Visit without previous SW');
         createSnackbar({
@@ -42,16 +57,12 @@ if(navigator.serviceWorker){
   // register message receiver
   // https://dbwriteups.wordpress.com/2015/11/16/service-workers-part-3-communication-between-sw-and-pages/
   navigator.serviceWorker.onmessage = (e) => {
-    console.log('SW: SW Broadcasting:', event);
+    console.log('SW: SW Broadcasting:', e);
     const data = e.data
-    
+
     if(data.command == "UPDATE_FOUND"){
       console.log("UPDATE_FOUND_BY_SW", data);
-      createSnackbar({
-        message: "Content updated.",
-        actionText:"refresh",
-        action: function(e){location.reload()}
-      })
+      scheduleAutoReload('Content updated');
     }
   }
 }
